@@ -1,0 +1,5 @@
+export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
+export const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
+export const RESET_NOTIFICATIONS = 'RESET_NOTIFICATIONS';
+
+export const DISPATCH_UPDATE = 'notification_update';
