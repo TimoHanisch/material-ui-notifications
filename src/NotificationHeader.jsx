@@ -7,6 +7,28 @@ import Close from 'material-ui/svg-icons/navigation/close';
 
 class NotificationHeader extends React.PureComponent {
 
+    static propTypes = {
+
+        headerLabel: PropTypes.string.isRequired,
+
+        onClose: PropTypes.func.isRequired,
+
+        icon: PropTypes.node,
+
+        timestamp: PropTypes.string,
+
+        secondaryHeaderLabel: PropTypes.string,
+
+        primaryColor: PropTypes.string,
+    };
+
+    static defaultProps = {
+        icon: null,
+        primaryColor: '',
+        secondaryHeaderLabel: '',
+        timestamp: '',
+    };
+
     static STYLES = {
         closeButton: {
             width: 22,
@@ -51,28 +73,6 @@ class NotificationHeader extends React.PureComponent {
             fontSize: 12,
             marginRight: 8,
         }
-    };
-
-    static propTypes = {
-
-        headerLabel: PropTypes.string.isRequired,
-
-        onClose: PropTypes.func.isRequired,
-
-        icon: PropTypes.node,
-
-        timestamp: PropTypes.string,
-
-        secondaryHeaderLabel: PropTypes.string,
-
-        primaryColor: PropTypes.string,
-    };
-
-    static defaultProps = {
-        icon: null,
-        primaryColor: '',
-        secondaryHeaderLabel: '',
-        timestamp: '',
     };
 
     render() {

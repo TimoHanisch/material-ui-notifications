@@ -4,14 +4,20 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import { FlatButton } from 'material-ui';
 import { grey200 } from 'material-ui/styles/colors';
 
-class NotificationActionContent extends React.PureComponent {
+/**
+ * The action area of a notifaction as shown in https://material.io/guidelines/patterns/notifications.html#notifications-anatomy-of-a-notification
+ * and adjusted for the web.
+ */
+class NotificationActionArea extends React.PureComponent {
 
     static propTypes = {
+        /* An array of action objects which are shown as flat buttons at the bottom of the notification */
         actions: PropTypes.arrayOf(PropTypes.shape({
             label: PropTypes.string.isRequired,
             onClick: PropTypes.func.isRequired,
         })).isRequired,
 
+        /* By default notifications use the primary1color defined for the material-ui theme for the header and actions. */
         primaryColor: PropTypes.string,
     };
 
@@ -36,17 +42,17 @@ class NotificationActionContent extends React.PureComponent {
         const styles = {
             buttonLabel: {
                 color: primaryColor || muiTheme.palette.primary1Color,
-                padding: '0 8px 0 8px'
+                padding: '0 8px 0 8px',
             },
         };
         return (
-            <div style={NotificationActionContent.STYLES.container}>
+            <div style={NotificationActionArea.STYLES.container}>
                 {
                     actions.map((action, index) => (
                         <FlatButton
                             key={`nAction_${index}`}
                             label={action.label}
-                            style={index > 0 ? { ...NotificationActionContent.STYLES.button, marginLeft: 8 } : NotificationActionContent.STYLES.button}
+                            style={index > 0 ? { ...NotificationActionArea.STYLES.button, marginLeft: 8 } : NotificationActionArea.STYLES.button}
                             labelStyle={styles.buttonLabel}
                             onClick={action.onClick}
                         />
@@ -56,4 +62,5 @@ class NotificationActionContent extends React.PureComponent {
         );
     }
 }
-export default muiThemeable()(NotificationActionContent);
+// Use Material-UI HOC to get access to the used primary color
+export default muiThemeable()(NotificationActionArea);
