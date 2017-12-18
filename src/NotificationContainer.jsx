@@ -14,8 +14,41 @@ import { DISPATCH_UPDATE } from './lib/constants';
  * prop types is taken from react-flip-move, since they are only passed to the flip move component.
  * 
  * The container itself is a fixed div container with a z-index of 1200.
+ * 
+ * @author Timo Hanisch <timohanisch@googlemail.com>
+ * @since 0.1.0
  */
 export default class NotificationContainer extends React.Component {
+
+    /**
+     * The default enter/appear animation used by notifications added to
+     * the notification container.
+     * 
+     * @private
+     */
+    static _enterAnimation = {
+        from: {
+            opacity: 0.25,
+        },
+        to: {
+            opacity: 1,
+        },
+    };
+
+    /**
+     * The default leave animation used by notifications added to
+     * the notification container.
+     * 
+     * @private
+     */
+    static _leaveAnimation = {
+        from: {
+            opacity: 1,
+        },
+        to: {
+            opacity: 0,
+        },
+    };
 
     static propTypes = {
         /**
@@ -110,41 +143,44 @@ export default class NotificationContainer extends React.Component {
         },
     };
 
-    static _enterAnimation = {
-        from: {
-            opacity: 0.25,
-        },
-        to: {
-            opacity: 1,
-        },
-    };
-
-    static _leaveAnimation = {
-        from: {
-            opacity: 1,
-        },
-        to: {
-            opacity: 0,
-        },
-    };
-
     componentWillMount() {
         Store.on(DISPATCH_UPDATE, this._onStoreUpdate);
     }
 
     componentWillUnmount() {
+        // When the container unmounts we want all old notifications to be cleared.
+        // Currently only one NotificationContainer at a time is supported.
         NotificationActions.resetNotifications();
         Store.removeListener(DISPATCH_UPDATE, this._onStoreUpdate);
     }
 
+    /**
+     * Callback for the close button.
+     * 
+     * @param {Number} notificationId Id of the notification to be removed
+     * @private
+     */
     _onNotificationClose = (notificationId) => {
         NotificationActions.removeNotification(notificationId);
     };
 
+
+    /**
+     * Called when the internal notification store is updated. I.e. a notifcation is added
+     * or removed.
+     * 
+     * @private
+     */
     _onStoreUpdate = () => {
         this.forceUpdate();
     };
 
+    /**
+     * Builds the notficiaton container style with help of the passed position property.
+     * 
+     * @private
+     * @returns a style object used for the notification container itself.
+     */
     _builContainerStyle() {
         const { position } = this.props;
         // Depending on the chosen position we use a margin of 32 pixels from the
@@ -160,6 +196,7 @@ export default class NotificationContainer extends React.Component {
 
     render() {
         const { appearAnimation, duration, easing, enterAnimation, leaveAnimation } = this.props;
+        // Retrieve the notifcations from the internal store
         const notifications = Store.notifications;
         return (
             <FlipMove

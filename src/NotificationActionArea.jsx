@@ -7,6 +7,9 @@ import { grey200 } from 'material-ui/styles/colors';
 /**
  * The action area of a notifaction as shown in https://material.io/guidelines/patterns/notifications.html#notifications-anatomy-of-a-notification
  * and adjusted for the web.
+ * 
+ * @author Timo Hanisch <timohanisch@googlemail.com>
+ * @since 0.1.0
  */
 class NotificationActionArea extends React.PureComponent {
 
@@ -35,14 +38,18 @@ class NotificationActionArea extends React.PureComponent {
         button: {
             minWidth: null, // We do not want the default width of 88px
         },
+        buttonLabel: {
+            padding: '0 8px 0 8px',
+        },
     };
 
     render() {
         const { actions, muiTheme, primaryColor } = this.props;
         const styles = {
+            // Inline style which is relies on dynamic information
             buttonLabel: {
                 color: primaryColor || muiTheme.palette.primary1Color,
-                padding: '0 8px 0 8px',
+                ...NotificationActionArea.STYLES.buttonLabel,
             },
         };
         return (

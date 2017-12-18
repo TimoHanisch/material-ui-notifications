@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import NotificationHeader from './NotificationHeader';
+import NotificationHeaderArea from './NotificationHeaderArea';
 import NotificationContentArea from './NotificationContentArea';
 import NotificationActionArea from './NotificationActionArea';
 import Close from 'material-ui/svg-icons/navigation/close';
@@ -11,6 +11,9 @@ import { Avatar, IconButton, Paper, List, ListItem } from 'material-ui';
 /**
  * The notificaiton implemenation for the web based on material design
  * defined at https://material.io/guidelines/patterns/notifications.html.
+ * 
+ * @author Timo Hanisch <timohanisch@googlemail.com>
+ * @since 0.1.0
  */
 export default class Notification extends React.Component {
 
@@ -39,7 +42,7 @@ export default class Notification extends React.Component {
         /* An icon to be shown on the most left side of the notification header */
         icon: PropTypes.node,
 
-        /* By default notifications use the primary1color defined for the material-ui theme for the header and actions. */
+        /* By default notifications use the primary1color defined for the material-ui theme for the header and actions */
         primaryColor: PropTypes.string,
 
         /* A string which is additionally drawn besides the headerLabel */
@@ -71,10 +74,23 @@ export default class Notification extends React.Component {
     };
 
     render() {
-        const { actions, actionContent, avatar, icon, headerLabel, onClose, primaryColor, secondaryHeaderLabel, timestamp, style, title, text, } = this.props;
+        const {
+            actions,
+            actionContent,
+            avatar,
+            icon,
+            headerLabel,
+            onClose,
+            primaryColor,
+            secondaryHeaderLabel,
+            timestamp,
+            style,
+            title,
+            text,
+        } = this.props;
         return (
             <Paper style={{ ...Notification.STYLE.container, ...style }}>
-                <NotificationHeader
+                <NotificationHeaderArea
                     headerLabel={headerLabel}
                     icon={icon}
                     onClose={onClose}

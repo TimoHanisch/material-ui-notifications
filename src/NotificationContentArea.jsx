@@ -4,6 +4,9 @@ import { grey600 } from 'material-ui/styles/colors';
 
 /**
  * The content area of a notification as shown in https://material.io/guidelines/patterns/notifications.html#notifications-anatomy-of-a-notification.
+ * 
+ * @author Timo Hanisch <timohanisch@googlemail.com>
+ * @since 0.1.0
  */
 export default class NotificationContentArea extends React.PureComponent {
 
@@ -56,6 +59,8 @@ export default class NotificationContentArea extends React.PureComponent {
                     <span style={NotificationContentArea.STYLES.text}>{text}</span>
                 </div>
                 {
+                    // If no avatar was passed we do not render anything otherwise we render the avatar
+                    // and apply our styles to it
                     !!avatar && React.cloneElement(avatar, { style: NotificationContentArea.STYLES.avatar })
                 }
             </div>
