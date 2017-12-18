@@ -1,4 +1,4 @@
-# material-ui-notifications
+# Material-UI Notifications
 
 
 # Installation
