@@ -1,5 +1,7 @@
 # Material-UI Notifications
 
+[![https://nodei.co/npm/material-ui-notifications.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/material-ui-notifications.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/material-ui-notifications)
+
 Material-UI Notification offers components and functionality to use a web version of the Material Desing notifications as seen
 in the [Documentation](https://material.io/guidelines/patterns/notifications.html#notifications-anatomy-of-a-notification).
 
