@@ -1,6 +1,6 @@
 {
   "name": "material-ui-notifications",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Material Design spec compliant notifciation implementation for the web. Inspired by https://github.com/puranjayjain/react-materialui-notifications",
   "keywords": [
     "react",

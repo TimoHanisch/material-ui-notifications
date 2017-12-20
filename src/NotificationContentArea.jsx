@@ -43,6 +43,7 @@ export default class NotificationContentArea extends React.PureComponent {
         textContainer: {
             display: 'flex',
             flexDirection: 'column',
+            maxWidth: 392,
         },
         title: {
             fontSize: 15,
