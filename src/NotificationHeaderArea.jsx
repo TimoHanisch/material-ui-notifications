@@ -74,11 +74,11 @@ class NotificationHeaderArea extends React.PureComponent {
         },
         secondary: {
             color: grey600,
-            fontSize: 12,
+            fontSize: 14,
         },
         separator: {
             color: grey600,
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: 600,
             margin: '0 4px 0 4px'
         },
