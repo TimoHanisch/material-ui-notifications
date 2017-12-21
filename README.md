@@ -53,7 +53,9 @@ import { NotificationActions, NotifcationContainer } from 'material-ui-notificat
                 }
             ); 
         }}
-    />
+    >
+    Click me
+    </button>
  </div>
 ...
 ```
