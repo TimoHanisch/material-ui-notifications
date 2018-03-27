@@ -12,18 +12,17 @@ import { DISPATCH_UPDATE } from './lib/constants';
  * Additionally it handles all notification animations with the help
  * of react-flip-move (https://github.com/joshwcomeau/react-flip-move). Documentation for
  * prop types is taken from react-flip-move, since they are only passed to the flip move component.
- * 
+ *
  * The container itself is a fixed div container with a z-index of 1200.
- * 
+ *
  * @author Timo Hanisch <timohanisch@googlemail.com>
  * @since 0.1.0
  */
 export default class NotificationContainer extends React.Component {
-
     /**
      * The default enter/appear animation used by notifications added to
      * the notification container.
-     * 
+     *
      * @private
      */
     static _enterAnimation = {
@@ -38,7 +37,7 @@ export default class NotificationContainer extends React.Component {
     /**
      * The default leave animation used by notifications added to
      * the notification container.
-     * 
+     *
      * @private
      */
     static _leaveAnimation = {
@@ -52,8 +51,8 @@ export default class NotificationContainer extends React.Component {
 
     static propTypes = {
         /**
-         * Control the appear animation that runs when the component mounts. Control the appear 
-         * animation that runs when the component mounts. Works identically to enterAnimation below, 
+         * Control the appear animation that runs when the component mounts. Control the appear
+         * animation that runs when the component mounts. Works identically to enterAnimation below,
          * but only fires on the initial children.
          */
         appearAnimation: PropTypes.oneOfType([
@@ -124,7 +123,7 @@ export default class NotificationContainer extends React.Component {
             'bottom-right',
             'bottom-left',
         ]),
-    }
+    };
 
     static defaultProps = {
         appearAnimation: NotificationContainer._enterAnimation,
@@ -143,6 +142,12 @@ export default class NotificationContainer extends React.Component {
         },
     };
 
+    constructor() {
+        super();
+        this._onNotificationClose = this._onNotificationClose.bind(this);
+        this._onStoreUpdate = this._onStoreUpdate.bind(this);
+    }
+
     componentWillMount() {
         Store.on(DISPATCH_UPDATE, this._onStoreUpdate);
     }
@@ -156,32 +161,31 @@ export default class NotificationContainer extends React.Component {
 
     /**
      * Callback for the close button.
-     * 
+     *
      * @param {Number} notificationId Id of the notification to be removed
      * @private
      */
-    _onNotificationClose = (notificationId) => {
+    _onNotificationClose(notificationId) {
         NotificationActions.removeNotification(notificationId);
-    };
-
+    }
 
     /**
      * Called when the internal notification store is updated. I.e. a notifcation is added
      * or removed.
-     * 
+     *
      * @private
      */
-    _onStoreUpdate = () => {
+    _onStoreUpdate() {
         this.forceUpdate();
-    };
+    }
 
     /**
      * Builds the notficiaton container style with help of the passed position property.
-     * 
+     *
      * @private
      * @returns a style object used for the notification container itself.
      */
-    _builContainerStyle() {
+    _buildContainerStyle() {
         const { position } = this.props;
         // Depending on the chosen position we use a margin of 32 pixels from the
         // corresponding side.
@@ -195,9 +199,15 @@ export default class NotificationContainer extends React.Component {
     }
 
     render() {
-        const { appearAnimation, duration, easing, enterAnimation, leaveAnimation } = this.props;
+        const {
+            appearAnimation,
+            duration,
+            easing,
+            enterAnimation,
+            leaveAnimation,
+        } = this.props;
         // Retrieve the notifcations from the internal store
-        const notifications = Store.notifications;
+        const { notifications } = Store;
         return (
             <FlipMove
                 appearAnimation={appearAnimation}
@@ -205,26 +215,28 @@ export default class NotificationContainer extends React.Component {
                 easing={easing}
                 enterAnimation={enterAnimation}
                 leaveAnimation={leaveAnimation}
-                style={this._builContainerStyle()}
+                style={this._buildContainerStyle()}
             >
-                {
-                    notifications.map((notification, index) => (
-                        <Notification
-                            key={notification.id}
-                            headerLabel={notification.headerLabel}
-                            onClose={() => this._onNotificationClose(notification.id)}
-                            title={notification.title}
-                            text={notification.text}
-                            avatar={notification.avatar}
-                            actions={notification.actions}
-                            icon={notification.icon}
-                            primaryColor={notification.primaryColor}
-                            secondaryHeaderLabel={notification.secondaryHeaderLabel}
-                            timestamp={notification.timestamp}
-                            style={{ marginTop: index > 0 ? 16 : 0, ...notification.style }}
-                        />
-                    ))
-                }
+                {notifications.map((notification, index) => (
+                    <Notification
+                        key={notification.id}
+                        notificationId={notification.id}
+                        headerLabel={notification.headerLabel}
+                        onClose={this._onNotificationClose}
+                        title={notification.title}
+                        text={notification.text}
+                        avatar={notification.avatar}
+                        actions={notification.actions}
+                        icon={notification.icon}
+                        primaryColor={notification.primaryColor}
+                        secondaryHeaderLabel={notification.secondaryHeaderLabel}
+                        timestamp={notification.timestamp}
+                        style={{
+                            marginTop: index > 0 ? 16 : 0,
+                            ...notification.style,
+                        }}
+                    />
+                ))}
             </FlipMove>
         );
     }

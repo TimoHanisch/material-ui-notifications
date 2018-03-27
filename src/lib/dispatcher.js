@@ -7,13 +7,13 @@ import { Dispatcher } from 'flux';
  * dispatcher.
  */
 class NotificationDispatcher extends Dispatcher {
-	constructor() {
-		super();
-	}
+    constructor() {
+        super();
+    }
 
-	dispatch(data) {
-		super.dispatch(data);
-	}
+    dispatch(data) {
+        super.dispatch(data);
+    }
 }
 
 export default new NotificationDispatcher();

@@ -11,12 +11,11 @@ import { Avatar, IconButton, Paper, List, ListItem } from 'material-ui';
 /**
  * The notificaiton implemenation for the web based on material design
  * defined at https://material.io/guidelines/patterns/notifications.html.
- * 
+ *
  * @author Timo Hanisch <timohanisch@googlemail.com>
  * @since 0.1.0
  */
 export default class Notification extends React.Component {
-
     static propTypes = {
         /* The title of the application/notification in the notification header */
         headerLabel: PropTypes.string.isRequired,
@@ -30,14 +29,22 @@ export default class Notification extends React.Component {
         /* Text shown in the content body below the title */
         text: PropTypes.string.isRequired,
 
+        /* The id of the shown notification, is used for minimizing function creation while using the notification container */
+        notificationId: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+        ]),
+
         /* An avatar which should be added to the notification. May indiciate the creator of the notification to the user */
         avatar: PropTypes.node,
 
         /* An array of action objects which are shown as flat buttons at the bottom of the notification */
-        actions: PropTypes.arrayOf(PropTypes.shape({
-            label: PropTypes.string.isRequired,
-            onClick: PropTypes.func.isRequired,
-        })),
+        actions: PropTypes.arrayOf(
+            PropTypes.shape({
+                label: PropTypes.string.isRequired,
+                onClick: PropTypes.func.isRequired,
+            })
+        ),
 
         /* An icon to be shown on the most left side of the notification header */
         icon: PropTypes.node,
@@ -59,7 +66,8 @@ export default class Notification extends React.Component {
         avatar: null,
         actionArea: null,
         icon: null,
-        secondaryHeader: '',
+        notificationId: 0,
+        secondaryHeaderLabel: '',
         timestamp: '',
         primaryColor: '',
         style: {},
@@ -73,6 +81,20 @@ export default class Notification extends React.Component {
         },
     };
 
+    constructor() {
+        super();
+        this._onClose = this._onClose.bind(this);
+    }
+
+    _onClose(e) {
+        const { notificationId, onClose } = this.props;
+        if (notificationId) {
+            onClose(notificationId);
+        } else {
+            onClose(e);
+        }
+    }
+
     render() {
         const {
             actions,
@@ -80,7 +102,6 @@ export default class Notification extends React.Component {
             avatar,
             icon,
             headerLabel,
-            onClose,
             primaryColor,
             secondaryHeaderLabel,
             timestamp,
@@ -93,7 +114,7 @@ export default class Notification extends React.Component {
                 <NotificationHeaderArea
                     headerLabel={headerLabel}
                     icon={icon}
-                    onClose={onClose}
+                    onClose={this._onClose}
                     primaryColor={primaryColor}
                     secondaryHeaderLabel={secondaryHeaderLabel}
                     timestamp={timestamp}
@@ -103,15 +124,13 @@ export default class Notification extends React.Component {
                     title={title}
                     text={text}
                 />
-                {
-                    // Only render actions if the actions were passed to the component
-                    !!actions && (
-                        <NotificationActionArea
-                            actions={actions}
-                            primaryColor={primaryColor}
-                        />
-                    )
-                }
+                {// Only render actions if the actions were passed to the component
+                !!actions && (
+                    <NotificationActionArea
+                        actions={actions}
+                        primaryColor={primaryColor}
+                    />
+                )}
             </Paper>
         );
     }
