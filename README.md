@@ -36,7 +36,7 @@ To use all components you have to add `material-ui-notifications` to your depend
 **Simple usage of a notification container**
 
 ```jsx
-import { NotificationActions, NotifcationContainer } from 'material-ui-notifications';
+import { NotificationActions, NotificationContainer } from 'material-ui-notifications';
 ...
 <div>
     <NotificationContainer />
