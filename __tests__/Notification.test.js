@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Notification from '../src/Notification';
-import { Avatar } from 'material-ui';
-import { CommunicationEmail } from 'material-ui/svg-icons';
+import { Avatar } from '@material-ui/core';
+import { Email } from '@material-ui/icons';
 
 describe('Test Notification component', () => {
     const onCloseMock = jest.fn();
@@ -18,7 +18,7 @@ describe('Test Notification component', () => {
                 title="Test Title"
                 text="Test Text"
             />
-        );
+        ).dive();
 
         expect(wrapper.is('Paper')).toBeTruthy();
     });
@@ -129,7 +129,7 @@ describe('Test Notification component', () => {
     });
 
     test('if an icon is set, it should be passed to NotificationHeaderArea', () => {
-        const icon = <CommunicationEmail />;
+        const icon = <Email />;
         const wrapper = shallow(
             <Notification
                 headerLabel="Test"

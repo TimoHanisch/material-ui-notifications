@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Avatar } from 'material-ui';
-import { CommunicationCall } from 'material-ui/svg-icons';
+import { Avatar } from '@material-ui/icons';
+import { Call } from '@material-ui/icons';
 import NotificationContainer from '../src/NotificationContainer';
 import Store from '../src/lib/store';
 import NotificationActions from '../src/lib/NotificationActions';
@@ -43,7 +43,7 @@ describe('Test NotificationContainer', () => {
                 text: 'text',
                 avatar: <Avatar />,
                 actions: [{ label: 'action', onClick: jest.fn() }],
-                icon: <CommunicationCall />,
+                icon: <Call />,
                 primaryColor: 'red',
                 secondaryHeaderLabel: 'secondary',
                 timestamp: '12:00',
@@ -55,7 +55,7 @@ describe('Test NotificationContainer', () => {
                 text: 'text',
                 avatar: <Avatar />,
                 actions: [{ label: 'action', onClick: jest.fn() }],
-                icon: <CommunicationCall />,
+                icon: <Call />,
                 primaryColor: 'blue',
                 secondaryHeaderLabel: 'secondary',
                 timestamp: '13:00',

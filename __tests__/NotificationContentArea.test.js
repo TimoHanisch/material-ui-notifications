@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Avatar } from 'material-ui';
+import { Avatar } from '@material-ui/core';
 import NotificationContentArea from '../src/NotificationContentArea';
 
 describe('Test NotificationContentArea', () => {
@@ -37,7 +37,7 @@ describe('Test NotificationContentArea', () => {
             />
         );
 
-        expect(wrapper.find('Avatar')).toHaveLength(1);
+        expect(wrapper.childAt(1).exists()).toBeTruthy();
 
         expect(cloneElementSpy).toHaveBeenCalledTimes(1);
         expect(cloneElementSpy).toHaveBeenCalledWith(avatar, {

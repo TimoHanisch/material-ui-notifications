@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import NotificationHeaderArea from './NotificationHeaderArea';
 import NotificationContentArea from './NotificationContentArea';
 import NotificationActionArea from './NotificationActionArea';
-import Close from 'material-ui/svg-icons/navigation/close';
+import { Close } from '@material-ui/icons';
 import { Transition } from 'react-transition-group';
-import { Avatar, IconButton, Paper, List, ListItem } from 'material-ui';
+import { Avatar, IconButton, Paper, List, ListItem } from '@material-ui/core';
 
 /**
  * The notificaiton implemenation for the web based on material design

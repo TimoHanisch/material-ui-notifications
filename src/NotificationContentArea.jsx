@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { grey600 } from 'material-ui/styles/colors';
+import grey from '@material-ui/core/colors/grey';
 
 const STYLES = {
     avatar: {
@@ -14,7 +14,7 @@ const STYLES = {
     },
     text: {
         fontSize: 14,
-        color: grey600,
+        color: grey[600],
         marginTop: 2,
     },
     textContainer: {

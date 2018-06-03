@@ -28,14 +28,16 @@ describe('Test NotificationActionArea', () => {
         ).dive();
 
         expect(wrapper.children()).toHaveLength(actionsMock.length);
-        const firstButton = wrapper.childAt(0);
-        expect(firstButton.is('FlatButton')).toBeTruthy();
-        expect(firstButton.props().label).toBe(actionsMock[0].label);
+        const firstButton = wrapper.childAt(0).dive();
+        expect(firstButton.is('Button')).toBeTruthy();
+        expect(firstButton.childAt(0).is('span')).toBeTruthy();
+        expect(firstButton.childAt(0).text()).toBe(actionsMock[0].label);
         expect(firstButton.props().onClick).toBe(actionsMock[0].onClick);
 
-        const secondButton = wrapper.childAt(1);
-        expect(secondButton.is('FlatButton')).toBeTruthy();
-        expect(secondButton.props().label).toBe(actionsMock[1].label);
+        const secondButton = wrapper.childAt(1).dive();
+        expect(secondButton.is('Button')).toBeTruthy();
+        expect(secondButton.childAt(0).is('span')).toBeTruthy();
+        expect(secondButton.childAt(0).text()).toBe(actionsMock[1].label);
         expect(secondButton.props().onClick).toBe(actionsMock[1].onClick);
     });
 
@@ -48,42 +50,41 @@ describe('Test NotificationActionArea', () => {
         expect(wrapper.childAt(1).props().style.marginLeft).toBe(8);
     });
 
-    test('if a muiTheme.palette.primary1Color is set, the button label should use this color', () => {
+    test('if a muiTheme primary color is set, the button label should use this color', () => {
         const muiThemMock = {
             palette: {
-                primary1Color: 'blue',
+                text: { primary: 'blue' },
             },
         };
         const wrapper = shallow(
-            <NotificationActionArea
-                actions={actionsMock}
-                muiTheme={muiThemMock}
-            />
+            <NotificationActionArea actions={actionsMock} theme={muiThemMock} />
         ).dive();
 
         actionsMock.forEach((e, index) => {
-            expect(wrapper.childAt(index).props().labelStyle.color).toBe(
-                muiThemMock.palette.primary1Color
+            const button = wrapper.childAt(index).dive();
+            expect(button.childAt(0).props().style.color).toBe(
+                muiThemMock.palette.text.primary
             );
         });
     });
 
-    test('if primaryColor and muiTheme.palette.primary1Color are set, the primaryColor should be used for the labels', () => {
+    test('if primary color and muiTheme primary color are set, the primaryColor should be used for the labels', () => {
         const muiThemMock = {
             palette: {
-                primary1Color: 'blue',
+                text: { primary: 'blue' },
             },
         };
         const wrapper = shallow(
             <NotificationActionArea
                 actions={actionsMock}
-                muiTheme={muiThemMock}
+                theme={muiThemMock}
                 primaryColor="red"
             />
         ).dive();
 
         actionsMock.forEach((e, index) => {
-            expect(wrapper.childAt(index).props().labelStyle.color).toBe('red');
+            const button = wrapper.childAt(index).dive();
+            expect(button.childAt(0).props().style.color).toBe('red');
         });
     });
 

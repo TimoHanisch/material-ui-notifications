@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import muiThemeable from 'material-ui/styles/muiThemeable';
-import { grey600 } from 'material-ui/styles/colors';
-import { IconButton } from 'material-ui';
-import Close from 'material-ui/svg-icons/navigation/close';
+import { withTheme } from '@material-ui/core/styles';
+import grey from '@material-ui/core/colors/grey';
+import { IconButton } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 
 const STYLES = {
     closeButton: {
@@ -35,17 +35,17 @@ const STYLES = {
         fontSize: 14,
     },
     secondary: {
-        color: grey600,
+        color: grey[600],
         fontSize: 14,
     },
     separator: {
-        color: grey600,
+        color: grey[600],
         fontSize: 14,
         fontWeight: 600,
         margin: '0 4px 0 4px',
     },
     timestamp: {
-        color: grey600,
+        color: grey[600],
         fontSize: 12,
         marginRight: 8,
     },
@@ -62,35 +62,36 @@ const NotificationHeaderArea = ({
     headerLabel,
     timestamp,
     secondaryHeaderLabel,
-    muiTheme,
+    theme,
     primaryColor,
     onClose,
 }) => {
+    // Check if the notificaton should have another primary color
+    const color = primaryColor || theme.palette.text.primary;
     // Since the header relies on dynamic information for styling we create the style object inside the render
     const styles = {
         headerLabel: {
-            color: primaryColor || muiTheme.palette.primary1Color,
+            color,
             marginLeft: icon ? 8 : 0,
         },
     };
-    // Check if the notificaton should have another primary color
-    const color = primaryColor || muiTheme.palette.primary1Color;
+
     // For secondary and meta text tags we use React.Fragment which is part of React
     // since 16.2. These tags are not part of the final DOM, but allow us to
     // return multiple tags from a component without cluttering the DOM
     // by using div containers.
     return (
-        <div style={NotificationHeaderArea.STYLES.container}>
-            <div style={NotificationHeaderArea.STYLES.information}>
+        <div style={STYLES.container}>
+            <div style={STYLES.information}>
                 {// Check if the icon should be rendered and set color and styles
                 !!icon &&
                     React.cloneElement(icon, {
                         color,
-                        style: NotificationHeaderArea.STYLES.icon,
+                        style: { ...STYLES.icon, fill: color },
                     })}
                 <span
                     style={{
-                        ...NotificationHeaderArea.STYLES.header,
+                        ...STYLES.header,
                         ...styles.headerLabel,
                     }}
                 >
@@ -100,10 +101,8 @@ const NotificationHeaderArea = ({
                 // should be rendered
                 !!secondaryHeaderLabel && (
                     <React.Fragment>
-                        <span style={NotificationHeaderArea.STYLES.separator}>
-                            ·
-                        </span>
-                        <span style={NotificationHeaderArea.STYLES.secondary}>
+                        <span style={STYLES.separator}>·</span>
+                        <span style={STYLES.secondary}>
                             {secondaryHeaderLabel}
                         </span>
                     </React.Fragment>
@@ -111,22 +110,14 @@ const NotificationHeaderArea = ({
                 {// Same as for the secondary header
                 !!timestamp && (
                     <React.Fragment>
-                        <span style={NotificationHeaderArea.STYLES.separator}>
-                            ·
-                        </span>
-                        <span style={NotificationHeaderArea.STYLES.timestamp}>
-                            {timestamp}
-                        </span>
+                        <span style={STYLES.separator}>·</span>
+                        <span style={STYLES.timestamp}>{timestamp}</span>
                     </React.Fragment>
                 )}
             </div>
             {/* Button used to close the notifcation */}
-            <IconButton
-                onClick={onClose}
-                iconStyle={NotificationHeaderArea.STYLES.closeButtonIcon}
-                style={NotificationHeaderArea.STYLES.closeButton}
-            >
-                <Close color={color} />
+            <IconButton onClick={onClose} style={STYLES.closeButton}>
+                <Close style={{ ...STYLES.closeButtonIcon, fill: color }} />
             </IconButton>
         </div>
     );
@@ -162,4 +153,4 @@ NotificationHeaderArea.defaultProps = {
     timestamp: '',
 };
 
-export default muiThemeable()(NotificationHeaderArea);
+export default withTheme()(NotificationHeaderArea);

@@ -1,12 +1,15 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { NotificationContainer, Notification, NotificationActions } from '../src/index';
-import { Avatar, RaisedButton, FlatButton } from 'material-ui';
-import { red500 } from 'material-ui/styles/colors';
-import Close from 'material-ui/svg-icons/navigation/close';
-import Email from 'material-ui/svg-icons/communication/email';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {
+    NotificationContainer,
+    Notification,
+    NotificationActions,
+} from '../src/index';
+import { Avatar, Button } from '@material-ui/core';
+import red from '@material-ui/core/colors/red';
+import { Close, Email } from '@material-ui/icons';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 storiesOf('Notification', module)
     .add('Simple Notification', () => (
@@ -14,7 +17,7 @@ storiesOf('Notification', module)
             <MuiThemeProvider>
                 <Notification
                     headerLabel="Mail"
-                    onClose={() => { }}
+                    onClose={() => {}}
                     title="Timo Hanisch"
                     text="Yeah this seems like a pretty good idea!"
                 />
@@ -25,13 +28,15 @@ storiesOf('Notification', module)
         <div style={{ position: 'fixed' }}>
             <MuiThemeProvider>
                 <Notification
-                    avatar={<Avatar src="http://archive.jsonline.com/images.ashx?file=42269712_homer(2).jpg&resize=" />}
+                    avatar={
+                        <Avatar src="http://archive.jsonline.com/images.ashx?file=42269712_homer(2).jpg&resize=" />
+                    }
                     icon={<Email />}
                     headerLabel="Mail"
                     secondaryHeaderLabel="timohanisch@googlemail.com"
                     timestamp="Now"
-                    primaryColor={red500}
-                    onClose={() => { }}
+                    primaryColor={red[500]}
+                    onClose={() => {}}
                     title="Timo Hanisch"
                     text="Yeah this seems like a pretty good idea!"
                 />
@@ -44,21 +49,23 @@ storiesOf('Notification', module)
                 <Notification
                     actions={[
                         {
-                            label: "Reply",
-                            onClick: e => console.info("Lets reply"),
+                            label: 'Reply',
+                            onClick: e => console.info('Lets reply'),
                         },
                         {
-                            label: "Archive",
-                            onClick: e => console.info("Lets archive"),
+                            label: 'Archive',
+                            onClick: e => console.info('Lets archive'),
                         },
                     ]}
-                    avatar={<Avatar src="http://archive.jsonline.com/images.ashx?file=42269712_homer(2).jpg&resize=" />}
+                    avatar={
+                        <Avatar src="http://archive.jsonline.com/images.ashx?file=42269712_homer(2).jpg&resize=" />
+                    }
                     icon={<Email />}
                     headerLabel="Mail"
                     secondaryHeaderLabel="timohanisch@googlemail.com"
                     timestamp="11.12.2017"
-                    primaryColor={red500}
-                    onClose={() => { }}
+                    primaryColor={red[500]}
+                    onClose={() => {}}
                     title="Timo Hanisch"
                     text="Yeah this seems like a pretty good idea!"
                 />
@@ -71,8 +78,8 @@ storiesOf('NotificationContainer', module)
         <MuiThemeProvider>
             <div>
                 <NotificationContainer />
-                <RaisedButton
-                    label="Create Notification"
+                <Button
+                    variant="raised"
                     onClick={() => {
                         NotificationActions.addNotification({
                             headerLabel: 'Mail',
@@ -80,7 +87,9 @@ storiesOf('NotificationContainer', module)
                             text: 'Yeah this seems like a pretty good idea!',
                         });
                     }}
-                />
+                >
+                    Create Notification
+                </Button>
             </div>
         </MuiThemeProvider>
     ))
@@ -88,21 +97,26 @@ storiesOf('NotificationContainer', module)
         <MuiThemeProvider>
             <div>
                 <NotificationContainer />
-                <RaisedButton
-                    label="Create Notification"
+                <Button
+                    variant="raised"
+                    label=""
                     onClick={() => {
                         NotificationActions.addNotification({
-                            avatar: <Avatar src="http://archive.jsonline.com/images.ashx?file=42269712_homer(2).jpg&resize=" />,
+                            avatar: (
+                                <Avatar src="http://archive.jsonline.com/images.ashx?file=42269712_homer(2).jpg&resize=" />
+                            ),
                             icon: <Email />,
-                            headerLabel: "Mail",
-                            secondaryHeaderLabel: "timohanisch@googlemail.com",
-                            timestamp: "Now",
-                            primaryColor: red500,
-                            title: "Timo Hanisch",
-                            text: "Yeah this seems like a pretty good idea!",
+                            headerLabel: 'Mail',
+                            secondaryHeaderLabel: 'timohanisch@googlemail.com',
+                            timestamp: 'Now',
+                            primaryColor: red[500],
+                            title: 'Timo Hanisch',
+                            text: 'Yeah this seems like a pretty good idea!',
                         });
                     }}
-                />
+                >
+                    Create Notification
+                </Button>
             </div>
         </MuiThemeProvider>
     ))
@@ -110,22 +124,25 @@ storiesOf('NotificationContainer', module)
         <MuiThemeProvider>
             <div>
                 <NotificationContainer />
-                <RaisedButton
-                    label="Create Notification"
+                <Button
                     onClick={() => {
                         NotificationActions.addNotification({
                             autoHide: 5000,
-                            avatar: <Avatar src="http://archive.jsonline.com/images.ashx?file=42269712_homer(2).jpg&resize=" />,
+                            avatar: (
+                                <Avatar src="http://archive.jsonline.com/images.ashx?file=42269712_homer(2).jpg&resize=" />
+                            ),
                             icon: <Email />,
-                            headerLabel: "Mail",
-                            secondaryHeaderLabel: "timohanisch@googlemail.com",
-                            timestamp: "Now",
-                            primaryColor: red500,
-                            title: "Timo Hanisch",
-                            text: "Yeah this seems like a pretty good idea!",
+                            headerLabel: 'Mail',
+                            secondaryHeaderLabel: 'timohanisch@googlemail.com',
+                            timestamp: 'Now',
+                            primaryColor: red[500],
+                            title: 'Timo Hanisch',
+                            text: 'Yeah this seems like a pretty good idea!',
                         });
                     }}
-                />
+                >
+                    Create Notification
+                </Button>
             </div>
         </MuiThemeProvider>
     ));

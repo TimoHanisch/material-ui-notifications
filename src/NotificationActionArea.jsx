@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import muiThemeable from 'material-ui/styles/muiThemeable';
-import { FlatButton } from 'material-ui';
-import { grey200 } from 'material-ui/styles/colors';
+import { withTheme } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
+import grey from '@material-ui/core/colors/grey';
 
 const STYLES = {
     container: {
         display: 'flex',
         flexDirection: 'row',
         padding: 8,
-        backgroundColor: grey200,
+        backgroundColor: grey[200],
     },
     button: {
         minWidth: null, // We do not want the default width of 88px
@@ -26,28 +26,28 @@ const STYLES = {
  * @author Timo Hanisch <timohanisch@googlemail.com>
  * @since 0.1.0
  */
-const NotificationActionArea = ({ actions, muiTheme, primaryColor }) => {
+const NotificationActionArea = ({ actions, theme, primaryColor }) => {
     const styles = {
         // Inline style which is relies on dynamic information
         buttonLabel: {
-            color: primaryColor || muiTheme.palette.primary1Color,
+            color: primaryColor || theme.palette.text.primary,
             ...STYLES.buttonLabel,
         },
     };
     return (
         <div style={STYLES.container}>
             {actions.map((action, index) => (
-                <FlatButton
+                <Button
                     key={`nAction_${index}`}
-                    label={action.label}
                     style={
                         index > 0
                             ? { ...STYLES.button, marginLeft: 8 }
                             : STYLES.button
                     }
-                    labelStyle={styles.buttonLabel}
                     onClick={action.onClick}
-                />
+                >
+                    <span style={styles.buttonLabel}>{action.label}</span>
+                </Button>
             ))}
         </div>
     );
@@ -71,4 +71,4 @@ NotificationActionArea.defaultProps = {
 };
 
 // Use Material-UI HOC to get access to the used primary color
-export default muiThemeable()(NotificationActionArea);
+export default withTheme()(NotificationActionArea);
