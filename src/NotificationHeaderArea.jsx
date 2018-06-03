@@ -4,6 +4,8 @@ import { withTheme } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 import { IconButton } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
+import NotificationSecondaryHeader from './NotificationSecondaryHeader';
+import NotificationTimestamp from './NotificationTimestamp';
 
 const STYLES = {
     closeButton: {
@@ -33,21 +35,6 @@ const STYLES = {
     },
     header: {
         fontSize: 14,
-    },
-    secondary: {
-        color: grey[600],
-        fontSize: 14,
-    },
-    separator: {
-        color: grey[600],
-        fontSize: 14,
-        fontWeight: 600,
-        margin: '0 4px 0 4px',
-    },
-    timestamp: {
-        color: grey[600],
-        fontSize: 12,
-        marginRight: 8,
     },
 };
 
@@ -97,23 +84,10 @@ const NotificationHeaderArea = ({
                 >
                     {headerLabel}
                 </span>
-                {// Check if the secondary header should be rendered and add a separator if it
-                // should be rendered
-                !!secondaryHeaderLabel && (
-                    <React.Fragment>
-                        <span style={STYLES.separator}>·</span>
-                        <span style={STYLES.secondary}>
-                            {secondaryHeaderLabel}
-                        </span>
-                    </React.Fragment>
+                {!!secondaryHeaderLabel && (
+                    <NotificationSecondaryHeader label={secondaryHeaderLabel} />
                 )}
-                {// Same as for the secondary header
-                !!timestamp && (
-                    <React.Fragment>
-                        <span style={STYLES.separator}>·</span>
-                        <span style={STYLES.timestamp}>{timestamp}</span>
-                    </React.Fragment>
-                )}
+                {!!timestamp && <NotificationTimestamp timestamp={timestamp} />}
             </div>
             {/* Button used to close the notifcation */}
             <IconButton onClick={onClose} style={STYLES.closeButton}>
