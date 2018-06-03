@@ -5,21 +5,28 @@
 Material-UI Notification offers components and functionality to use a web version of the Material Desing notifications as seen
 in the [Documentation](https://material.io/guidelines/patterns/notifications.html#notifications-anatomy-of-a-notification).
 
-To implement the components we use [Material-UI](https://github.com/mui-org/material-ui) (< v1.0.0) and [React Flip Move](https://github.com/joshwcomeau/react-flip-move).
+To implement the components we use [Material-UI](https://github.com/mui-org/material-ui) (> v1.0.0) and [React Flip Move](https://github.com/joshwcomeau/react-flip-move).
+
+### Notice
+
+From version `v0.2.X` on we only support `Material-UI >v1.X.X`.
 
 # Installation
 
 To use all components you have to add `material-ui-notifications` to your dependencies.
 
 **Yarn**
+
 ```bash
 > yarn add material-ui-notifications
 ```
 
 **npm**
+
 ```bash
 > npm install -S material-ui-notifications
 ```
+
 # Examples
 
 **Simple usage of a notification**
@@ -27,10 +34,12 @@ To use all components you have to add `material-ui-notifications` to your depend
 ```jsx
 <Notification
     headerLabel="Mail"
-    onClose={e => { this.setState({ showNotification: false }); }}
+    onClose={e => {
+        this.setState({ showNotification: false });
+    }}
     title="Timo Hanisch"
     text="Yeah this seems like a pretty good idea!"
- />
+/>
 ```
 
 **Simple usage of a notification container**
@@ -41,7 +50,7 @@ import { NotificationActions, NotifcationContainer } from 'material-ui-notificat
 <div>
     <NotificationContainer />
     <button onClick={
-        e => { 
+        e => {
             NotificationActions.addNotification(
                 {
                     headerLabel: "Mail",
@@ -51,7 +60,7 @@ import { NotificationActions, NotifcationContainer } from 'material-ui-notificat
                     title: "Timo Hanisch",
                     text: "Yeah this seems like a pretty good idea!",
                 }
-            ); 
+            );
         }}
     >
     Click me
@@ -62,7 +71,7 @@ import { NotificationActions, NotifcationContainer } from 'material-ui-notificat
 
 # Demo
 
-To run the demo clone the repository and then run following commands. We use [Storybook](https://github.com/storybooks/storybook) to test 
+To run the demo clone the repository and then run following commands. We use [Storybook](https://github.com/storybooks/storybook) to test
 
 ```bash
 > yarn
@@ -75,4 +84,5 @@ To run the demo clone the repository and then run following commands. We use [St
 The documentation for all components and functionalities can be found [here](/documentation/api.md)
 
 # License
+
 The Project is Licensed under the [MIT License](/LICENSE)
